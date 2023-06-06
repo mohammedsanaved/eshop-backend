@@ -9,7 +9,7 @@ import orderRoutes from './routes/orderRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
 import morgan from 'morgan';
 dotenv.config();
-// import cors from 'cors';
+import cors from 'cors';
 
 connectDB();
 const app = express();
@@ -20,17 +20,18 @@ if (process.env.NODE_ENV === 'development') {
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/frontend/dist')));
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, '/frontend/dist')));
 
-  app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'))
-  );
-} else {
-  app.get('/', (req, res) => {
-    res.send('Api is running');
-  });
-}
+//   app.get('*', (req, res) =>
+//     res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'))
+//   );
+// } else {
+//   app.get('/', (req, res) => {
+//     res.send('Api is running');
+//   });
+// }
+
 app.use(express.json());
 
 app.use('/api/products', productRoutes);
@@ -43,6 +44,10 @@ app.use('/api/config/paypal', (req, res) =>
 
 app.use(notFound);
 app.use(errorHandler);
+
+app.get('/', (req, res) => {
+  res.send('Api is running');
+});
 // app.use(cors());
 
 // app.use(
@@ -52,11 +57,18 @@ app.use(errorHandler);
 //     allowedHeaders: 'Content-Type,Authorization', // Replace with your allowed headers
 //   })
 // );
-
-// const PORT = process.env.PORT || 5000;
-// app.listen(
-//   PORT,
-//   console.log(
-//     `SERVER running on ${process.env.NODE_ENV} MODE listening on port ${PORT}`
-//   )
-// );
+app.use(
+  cors({
+    origin: [process.env.FRONTEND_URL],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+    optionSuccessStatus: 200,
+  })
+);
+const PORT = process.env.PORT || 5000;
+app.listen(
+  PORT,
+  console.log(
+    `SERVER running on ${process.env.NODE_ENV} MODE listening on port ${PORT}`
+  )
+);
