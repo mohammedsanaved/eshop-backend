@@ -4,6 +4,9 @@
   "description": "E-Shop Shopping App in MERN",
   "main": "server.js",
   "type": "module",
+  "engines": {
+    "node": ">= 14.20.1"
+  },
   "scripts": {
     "start": "node backend/server",
     "build": "react-scripts build",
