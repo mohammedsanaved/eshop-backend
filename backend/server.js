@@ -53,10 +53,10 @@ app.use(errorHandler);
 //   })
 // );
 
-const PORT = process.env.PORT || 5000;
-app.listen(
-  PORT,
-  console.log(
-    `SERVER running on ${process.env.NODE_ENV} MODE listening on port ${PORT}`
-  )
-);
+// const PORT = process.env.PORT || 5000;
+// app.listen(
+//   PORT,
+//   console.log(
+//     `SERVER running on ${process.env.NODE_ENV} MODE listening on port ${PORT}`
+//   )
+// );
