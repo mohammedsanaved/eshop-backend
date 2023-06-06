@@ -1,7 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 import generateToken from '../utils/generateToken.js';
-import { toastSuccess } from '../../frontend/src/components/UI/Toast.js';
 
 //@desc  Auth user & get token
 //@route POST /api/users/login
@@ -104,7 +103,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       isAdmin: updatedUser.isAdmin,
       token: generateToken(updatedUser._id),
     });
-    toastSuccess('Update SuccessFully');
   } else {
     res.status(404);
     throw new Error('User not found');
