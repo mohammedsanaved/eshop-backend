@@ -1,0 +1,14 @@
+all images
+
+<Form.Group controlId='image'>
+              <Form.Label>Image</Form.Label>
+              {image && (
+                <img src={image} alt='Preview' style={{ maxWidth: '100px' }} />
+              )}
+              <Form.Control
+                type='file'
+                label='Choose File'
+                onChange={uploadFileHandler}
+              />
+              {uploading && <Loader />}
+            </Form.Group>
