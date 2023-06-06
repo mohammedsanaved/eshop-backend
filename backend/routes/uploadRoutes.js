@@ -80,7 +80,9 @@ const upload = multer({
 //   res.send(`/${req.file.path}`);
 // });
 router.post('/', upload.single('image'), (req, res) => {
-  res.send(`http://localhost:5000/uploads/${req.file.filename}`);
+  res.send(
+    `https://eshop-backend-olbw.onrender.com/uploads/${req.file.filename}`
+  );
 });
 
 // Serve uploaded images as static files
